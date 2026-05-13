@@ -7,25 +7,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --sky-50:  #f0f9ff;
-      --sky-100: #e0f2fe;
-      --sky-200: #bae6fd;
-      --sky-300: #7dd3fc;
-      --sky-400: #38bdf8;
-      --sky-500: #0ea5e9;
-      --sky-600: #0284c7;
-      --ink:     #0c2d48;
-      --muted:   #2b5d79;
-      --card-bg: rgba(255,255,255,0.75);
+      --sky-50:  #e0f2fe;
+      --sky-100: #bae6fd;
+      --sky-200: #7dd3fc;
+      --sky-300: #38bdf8;
+      --sky-400: #0ea5e9;
+      --sky-500: #0284c7;
+      --sky-600: #0369a1;
+      --ink:     #082f49;
+      --muted:   #0369a1;
+      --card-bg: rgba(255,255,255,0.88);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
       background:
-        radial-gradient(ellipse at 10% 0%, rgba(125,211,252,0.45) 0%, transparent 55%),
-        radial-gradient(ellipse at 90% 100%, rgba(186,230,253,0.5) 0%, transparent 55%),
-        linear-gradient(180deg, #ddf1fc 0%, #f0faff 50%, #e4f4fd 100%);
+        radial-gradient(ellipse at 10% 0%, rgba(56,189,248,0.65) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(14,165,233,0.55) 0%, transparent 55%),
+        linear-gradient(180deg, #7dd3fc 0%, #bae6fd 50%, #7dd3fc 100%);
       display: flex;
       justify-content: center;
       padding: 44px 16px 80px;
@@ -34,7 +34,7 @@
     .bubble {
       position: fixed;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(186,230,253,0.55), rgba(125,211,252,0.15));
+      background: radial-gradient(circle at 30% 30%, rgba(56,189,248,0.6), rgba(14,165,233,0.2));
       pointer-events: none;
     }
     .bubble:nth-child(1){ width:220px;height:220px;top:-70px;left:-80px; }
@@ -64,9 +64,9 @@
       background: white;
       display: flex; align-items: center; justify-content: center;
       box-shadow:
-        0 0 0 5px rgba(125,211,252,0.4),
-        0 0 0 10px rgba(186,230,253,0.2),
-        0 12px 32px rgba(14,165,233,0.18);
+        0 0 0 5px rgba(14,165,233,0.55),
+        0 0 0 10px rgba(56,189,248,0.3),
+        0 12px 32px rgba(2,132,199,0.35);
       overflow: hidden;
       padding: 6px;
       position: relative;
@@ -76,7 +76,7 @@
       position: absolute;
       inset: -7px;
       border-radius: 50%;
-      border: 2px dashed rgba(56,189,248,0.38);
+      border: 2px dashed rgba(14,165,233,0.65);
       animation: spin 22s linear infinite;
     }
     .logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
@@ -88,27 +88,29 @@
       color: var(--ink);
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.4);
     }
     .brand-tagline {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-size: 1rem;
-      color: var(--muted);
+      color: #075985;
       letter-spacing: 0.04em;
       margin-top: -4px;
+      font-weight: 600;
     }
     .divider {
-      width: 48px; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--sky-400), transparent);
+      width: 48px; height: 2.5px;
+      background: linear-gradient(90deg, transparent, #0284c7, transparent);
       border-radius: 99px;
     }
     .section-label {
       align-self: flex-start;
       font-size: 0.68rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: #075985;
       padding-left: 4px;
       animation: fadeUp 0.5s 0.25s ease both;
     }
@@ -118,16 +120,16 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-radius: 22px;
-      border: 1.5px solid rgba(186,230,253,0.85);
-      box-shadow: 0 4px 24px rgba(14,165,233,0.09), 0 1px 4px rgba(14,165,233,0.06);
+      border: 2px solid rgba(14,165,233,0.5);
+      box-shadow: 0 6px 32px rgba(2,132,199,0.25), 0 1px 6px rgba(2,132,199,0.15);
       overflow: hidden;
       animation: fadeUp 0.55s 0.15s ease both;
     }
     .event-card::before {
       content: '';
       display: block;
-      height: 3px;
-      background: linear-gradient(90deg, var(--sky-300), var(--sky-500), var(--sky-300));
+      height: 4px;
+      background: linear-gradient(90deg, #38bdf8, #0284c7, #38bdf8);
     }
     .event-top {
       display: flex;
@@ -138,22 +140,23 @@
     .event-icon {
       width: 54px; height: 54px;
       border-radius: 16px;
-      background: linear-gradient(135deg, var(--sky-100), var(--sky-200));
+      background: linear-gradient(135deg, #bae6fd, #7dd3fc);
       display: flex; align-items: center; justify-content: center;
       font-size: 26px;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(14,165,233,0.12);
+      box-shadow: 0 3px 12px rgba(2,132,199,0.25);
     }
     .event-info { flex: 1; }
     .event-name {
       font-size: 1.15rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--ink);
     }
     .event-meta {
       font-size: 0.75rem;
-      color: var(--muted);
+      color: #0369a1;
       margin-top: 3px;
+      font-weight: 500;
     }
     .links-area {
       padding: 0 18px 20px;
@@ -162,8 +165,8 @@
       gap: 10px;
     }
     .link-separator {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--sky-200), transparent);
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, #38bdf8, transparent);
       margin-bottom: 2px;
     }
     .link-btn {
@@ -175,30 +178,31 @@
       border-radius: 14px;
       text-decoration: none;
       font-size: 0.92rem;
-      font-weight: 500;
+      font-weight: 600;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
       -webkit-tap-highlight-color: transparent;
     }
     .link-btn.register {
-      background: linear-gradient(135deg, var(--sky-400), var(--sky-600));
+      background: linear-gradient(135deg, #0ea5e9, #0369a1);
       color: white;
-      box-shadow: 0 4px 18px rgba(14,165,233,0.30);
+      box-shadow: 0 6px 22px rgba(2,132,199,0.45);
     }
-    .link-btn.register:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(14,165,233,0.38); }
+    .link-btn.register:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(2,132,199,0.55); }
     .link-btn.feedback {
       background: white;
-      color: var(--sky-600);
-      border: 1.5px solid var(--sky-200);
-      box-shadow: 0 2px 8px rgba(14,165,233,0.07);
+      color: #0369a1;
+      border: 2px solid #7dd3fc;
+      box-shadow: 0 2px 10px rgba(2,132,199,0.12);
     }
-    .link-btn.feedback:hover { background: var(--sky-50); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(14,165,233,0.13); }
+    .link-btn.feedback:hover { background: #e0f2fe; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(2,132,199,0.2); }
     .link-btn-icon { font-size: 18px; flex-shrink: 0; }
     .link-btn-text { flex: 1; }
-    .link-arrow { opacity: 0.65; font-size: 15px; }
+    .link-arrow { opacity: 0.85; font-size: 15px; }
     .footer {
       margin-top: 6px;
       font-size: 0.72rem;
-      color: var(--muted);
+      color: #075985;
+      font-weight: 600;
       text-align: center;
       letter-spacing: 0.06em;
       animation: fadeUp 0.5s 0.45s ease both;
@@ -243,9 +247,9 @@
       </a>
       <!-- <a href="https://forms.gle/x2BwsqdPPYnh5xnRA" target="_blank" class="link-btn feedback">
         <span class="link-btn-icon">💬</span>
-        <span class="link-btn-text">Share Your Feedback & </br> Collect Your Pictures</span>
+        <span class="link-btn-text">Share Your Feedback & <br/> Collect Your Pictures</span>
         <span class="link-arrow">→</span>
-      </a> --> 
+      </a> -->
     </div>
   </div>
 
