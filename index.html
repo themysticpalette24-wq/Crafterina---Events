@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crafterina – Events</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --sky-50:  #f0f9ff;
+      --sky-100: #e0f2fe;
+      --sky-200: #bae6fd;
+      --sky-300: #7dd3fc;
+      --sky-400: #38bdf8;
+      --sky-500: #0ea5e9;
+      --sky-600: #0284c7;
+      --ink:     #0c2d48;
+      --muted:   #5a8fad;
+      --card-bg: rgba(255,255,255,0.75);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 10% 0%, rgba(125,211,252,0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(186,230,253,0.5) 0%, transparent 55%),
+        linear-gradient(180deg, #ddf1fc 0%, #f0faff 50%, #e4f4fd 100%);
+      display: flex;
+      justify-content: center;
+      padding: 44px 16px 80px;
+      overflow-x: hidden;
+    }
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(186,230,253,0.55), rgba(125,211,252,0.15));
+      pointer-events: none;
+    }
+    .bubble:nth-child(1){ width:220px;height:220px;top:-70px;left:-80px; }
+    .bubble:nth-child(2){ width:140px;height:140px;bottom:40px;right:-40px; }
+    .bubble:nth-child(3){ width:90px;height:90px;top:38%;left:3%; }
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 430px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .header {
+      text-align: center;
+      animation: fadeDown 0.7s cubic-bezier(.22,1,.36,1) both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-wrap {
+      width: 118px; height: 118px;
+      border-radius: 50%;
+      background: white;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow:
+        0 0 0 5px rgba(125,211,252,0.4),
+        0 0 0 10px rgba(186,230,253,0.2),
+        0 12px 32px rgba(14,165,233,0.18);
+      overflow: hidden;
+      padding: 6px;
+      position: relative;
+    }
+    .logo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 2px dashed rgba(56,189,248,0.38);
+      animation: spin 22s linear infinite;
+    }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .brand-name {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .brand-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-top: -4px;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--sky-400), transparent);
+      border-radius: 99px;
+    }
+    .section-label {
+      align-self: flex-start;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-left: 4px;
+      animation: fadeUp 0.5s 0.25s ease both;
+    }
+    .event-card {
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 22px;
+      border: 1.5px solid rgba(186,230,253,0.85);
+      box-shadow: 0 4px 24px rgba(14,165,233,0.09), 0 1px 4px rgba(14,165,233,0.06);
+      overflow: hidden;
+      animation: fadeUp 0.55s 0.15s ease both;
+    }
+    .event-card::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sky-300), var(--sky-500), var(--sky-300));
+    }
+    .event-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 20px 16px;
+    }
+    .event-icon {
+      width: 54px; height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--sky-100), var(--sky-200));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(14,165,233,0.12);
+    }
+    .event-info { flex: 1; }
+    .event-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .event-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .links-area {
+      padding: 0 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .link-separator {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--sky-200), transparent);
+      margin-bottom: 2px;
+    }
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 15px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .link-btn.register {
+      background: linear-gradient(135deg, var(--sky-400), var(--sky-600));
+      color: white;
+      box-shadow: 0 4px 18px rgba(14,165,233,0.30);
+    }
+    .link-btn.register:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(14,165,233,0.38); }
+    .link-btn.feedback {
+      background: white;
+      color: var(--sky-600);
+      border: 1.5px solid var(--sky-200);
+      box-shadow: 0 2px 8px rgba(14,165,233,0.07);
+    }
+    .link-btn.feedback:hover { background: var(--sky-50); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(14,165,233,0.13); }
+    .link-btn-icon { font-size: 18px; flex-shrink: 0; }
+    .link-btn-text { flex: 1; }
+    .link-arrow { opacity: 0.65; font-size: 15px; }
+    .footer {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.06em;
+      animation: fadeUp 0.5s 0.45s ease both;
+    }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(16px)}  to{opacity:1;transform:translateY(0)} }
+  </style>
+</head>
+<body>
+
+<div class="bubble"></div>
+<div class="bubble"></div>
+<div class="bubble"></div>
+
+<div class="page">
+
+  <header class="header">
+    <div class="logo-wrap">
+      <img src="Main Logo.png" alt="Crafterina Logo"/>
+    </div>
+    <div class="brand-name">Crafterina</div>
+    <div class="brand-tagline">creations from the heart ♥</div>
+    <div class="divider"></div>
+  </header>
+
+  <div class="section-label">✦ Join the ART Journey</div>
+
+  <div class="event-card">
+    <div class="event-top">
+      <div class="event-icon">🎨</div>
+      <div class="event-info">
+        <div class="event-name">Sip &amp; Paint</div>
+        <div class="event-meta">24/05/2026, Brew N Cue</div>
+      </div>
+    </div>
+    <div class="links-area">
+      <div class="link-separator"></div>
+      <a href="https://forms.gle/2t8r3yPE8EsvCKAw9" target="_blank" class="link-btn register">
+        <span class="link-btn-icon">📝</span>
+        <span class="link-btn-text">Register Now</span>
+        <span class="link-arrow">→</span>
+      </a>
+      <!--- <a href="https://forms.gle/x2BwsqdPPYnh5xnRA" target="_blank" class="link-btn feedback">
+        <span class="link-btn-icon">💬</span>
+        <span class="link-btn-text">Share Your Feedback & </br> Collect Your Pictures</span>
+        <span class="link-arrow">→</span>
+      </a> --->
+    </div>
+  </div>
+
+  <div class="footer">made with ♥ by Crafterina</div>
+</div>
+
+</body>
+</html>
